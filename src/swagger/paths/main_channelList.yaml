@@ -1,0 +1,53 @@
+post:
+  tags:
+    - Main
+  summary: 채널리스트 정보 
+  requestBody:
+    description: Optional description in *Markdown*
+  responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ChannelReturn"
+    default:
+      description: 모든 통신에러
+      content:
+        application/json:
+          schema:
+            $ref: "../openapi.yaml#/components/schemas/Error"
+
+components:
+  schemas:
+    ChannelItem:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: number
+          description: 고유번호
+        src:
+          type: string
+          description: 이미지
+        mainTitle:
+          type: string
+          description: 메인 타이틀
+        chnnlName:
+          type: string
+          description: 채널 명
+        chnnelViewCount:
+          type: number
+          description: 조회수
+    
+    ChannelReturn:
+      allOf:
+        - $ref: "../openapi.yaml#/components/schemas/BaseReturn"
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: Array
+              items:
+                $ref: "#/components/schemas/ChannelItem"

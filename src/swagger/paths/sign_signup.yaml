@@ -1,0 +1,71 @@
+post:
+  tags:
+    - Sign
+  summary: 회원가입
+  requestBody:
+    description: Optional description in *Markdown*
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/LoginParam"
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: "#/components/schemas/LoginParam"
+  responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/SingUpReturn"
+    default:
+      description: 모든 통신에러
+      content:
+        application/json:
+          schema:
+            $ref: "../openapi.yaml#/components/schemas/Error"
+
+components:
+  schemas:
+    LoginParam:
+      type: object
+      required:
+        - email
+        - pwd
+        - nickname       
+      properties:
+        email:
+          type: string
+          description: 이메일
+        pwd:
+          type: string
+          description: 비밀번호
+        nickname:
+          type: string
+          description: 닉네임    
+        agmkEmail:
+          type: boolean
+          description: 이메일 수신동의    
+        agmkSmsLms:
+          type: boolean
+          description: SMS/LMS 수신동의                             
+
+    SingUpReturn:
+      allOf:
+        - $ref: "../openapi.yaml#/components/schemas/BaseReturn"
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: object
+              required:
+                - message
+                - code               
+              properties:
+                message:
+                  type: string
+                  description: 회원가입 성공 메시지
+                code:
+                  type: number
+                  description: 회원가입 성공시 반환코드                  

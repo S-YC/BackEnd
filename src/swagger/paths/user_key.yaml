@@ -1,0 +1,68 @@
+post:
+  tags:
+    - User
+  summary: AES 암호화 키
+  parameters:
+    - in: header
+      name: x-access-token
+      description: 헤더에 토큰을 입력하세요
+      schema:
+        type: string
+  requestBody:
+    description: Optional description in *Markdown*
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/KeyParam"
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: "#/components/schemas/KeyParam"
+  security:
+    - ApiKeyLogin: []
+  responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UserKeyReturn"
+    default:
+      description: 모든 통신에러
+      content:
+        application/json:
+          schema:
+            $ref: "../openapi.yaml#/components/schemas/Error"
+
+components:
+  schemas:
+    KeyParam:
+      type: object
+      required:
+        - key
+      properties:
+        email:
+          type: string
+          description: login 시 전달한 키값 을 RSA 방식으로 암호화한 데이터
+
+    UserKeyReturn:
+      allOf:
+        - $ref: "../openapi.yaml#/components/schemas/BaseReturn"
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: object
+              required:
+                - key
+                - slice
+              properties:
+                key:
+                  type: string
+                  description: AES 암호화 키
+                slice:
+                  type: number
+                  description: AES 암호화 슬라이스값
+                algorithm:
+                  type: string
+                  description: AES 암호화 방식

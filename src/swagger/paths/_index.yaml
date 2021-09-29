@@ -1,0 +1,16 @@
+/user/login:
+  $ref: "./user_login.yaml"
+/user/key:
+  $ref: "./user_key.yaml"
+/main/matchList:
+  $ref: "./main_matchList.yaml"
+/main/channelList:
+  $ref: "./main_channelList.yaml"
+/sign/signup:
+  $ref: "./sign_signUp.yaml"
+/sign/isEmail:
+  $ref: "./sign_isEmail.yaml"
+/sign/isnickName:
+  $ref: "./sign_isnickName.yaml"
+/login/isEmailSelect:
+  $ref: "./login_isEmailSelect" 

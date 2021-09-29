@@ -1,0 +1,61 @@
+post:
+  tags:
+    - User
+  summary: 로그인
+  requestBody:
+    description: Optional description in *Markdown*
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/LoginParam"
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: "#/components/schemas/LoginParam"
+  responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UserLoginReturn"
+    default:
+      description: 모든 통신에러
+      content:
+        application/json:
+          schema:
+            $ref: "../openapi.yaml#/components/schemas/Error"
+
+components:
+  schemas:
+    LoginParam:
+      type: object
+      required:
+        - email
+        - pwd
+      properties:
+        email:
+          type: string
+          description: 이메일
+        pwd:
+          type: string
+          description: 비밀번호
+
+    UserLoginReturn:
+      allOf:
+        - $ref: "../openapi.yaml#/components/schemas/BaseReturn"
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: object
+              required:
+                - token
+                - key
+              properties:
+                token:
+                  type: string
+                  description: 로그인 토큰 통신히 헤더 Authorization 담아 보낼것
+                key:
+                  type: string
+                  description: 로그인 후 암호화를 위한 키값

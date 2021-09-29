@@ -1,0 +1,57 @@
+post:
+  tags:
+    - Main
+  summary: 매치리스트 정보
+  requestBody:
+    description: Optional description in *Markdown*
+  responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/MatchReturn"
+    default:
+      description: 모든 통신에러
+      content:
+        application/json:
+          schema:
+            $ref: "../openapi.yaml#/components/schemas/Error"
+
+components:
+  schemas:
+    MatchItem:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: number
+          description: 고유번호
+        src:
+          type: string
+          description: 이미지
+        mainTitle:
+          type: string
+          description: 메인 타이틀
+        money:
+          type: string
+          description: 대회 상금
+        buttonTitle:
+          type: string
+          description: 버튼 타이틀
+        buttonLink:
+          type: string
+          description: 버튼 링크
+          
+    
+    MatchReturn:
+      allOf:
+        - $ref: "../openapi.yaml#/components/schemas/BaseReturn"
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/MatchItem"
