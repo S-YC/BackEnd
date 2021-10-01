@@ -8,7 +8,7 @@ const router = Router();
 /**
  * Main Data Select 
  */
-router.post("/matchList", matchList);
-router.post("/channelList", channelList);
+router.get("/matchlist", matchList);
+router.get("/channellist", channelList);
 
 export = router;

@@ -1,6 +1,6 @@
 post:
   tags:
-    - Sign
+    - User
   summary: 회원가입
   requestBody:
     description: Optional description in *Markdown*

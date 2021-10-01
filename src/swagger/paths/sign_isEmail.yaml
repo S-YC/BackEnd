@@ -1,23 +1,19 @@
-post:
+get:
   tags:
-    - Sign
+    - User
   summary: 이메일 중복검사
-  requestBody:
-    description: Optional description in *Markdown*
-    required: true
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/LoginParam"
-      application/x-www-form-urlencoded:
-        schema:
-          $ref: "#/components/schemas/LoginParam"
+  parameters:
+    - in: query
+      name: email
+      description: 이메일을 파라미터로 전송해주세요.
+      schema:
+        type: string
   responses:
     "200":
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/SingUpReturn"
+            $ref: "#/components/schemas/memberReturn"
     default:
       description: 모든 통신에러
       content:
@@ -36,13 +32,17 @@ components:
           type: string
           description: 이메일
 
-    SingUpReturn:
+    memberReturn:
       allOf:
-        - $ref: "../openapi.yaml#/components/schemas/BaseReturn"
         - type: object
           required:
+            - result         
             - data
           properties:
+            result:
+              type: boolean
+              default: true
+              description: 성공, 실패 유무          
             data:
               type: object
               required:

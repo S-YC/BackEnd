@@ -6,11 +6,9 @@
   $ref: "./main_matchList.yaml"
 /main/channelList:
   $ref: "./main_channelList.yaml"
-/sign/signup:
+/user/member:
   $ref: "./sign_signUp.yaml"
-/sign/isEmail:
+/user/member/email:
   $ref: "./sign_isEmail.yaml"
-/sign/isnickName:
+/user/member/nickname:
   $ref: "./sign_isnickName.yaml"
-/login/isEmailSelect:
-  $ref: "./login_isEmailSelect" 

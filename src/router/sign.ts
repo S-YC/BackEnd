@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { signup, isEmail, isnickName } from "../controller/sign";
+import { signup} from "../controller/sign";
 
 const router = Router();
 
@@ -7,7 +7,9 @@ const router = Router();
  * 회원가입, 이메일 중복확인
  */
 router.post("/signup", signup);
-router.post("/isEmail", isEmail);
-router.post("/isnickName", isnickName);
+
+router.post("/signup", signup);
+router.get("/signup/:key?type=email", signup);
+router.delete("/signup/:id", signup);
 
 export = router;
