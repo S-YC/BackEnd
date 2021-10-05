@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { getCountByEmail, getCountByNickname, IUserCount } from "../db/user";
 import { reqPost } from "../vo/parser";
 import { createError, createPayload, IPayload } from "../vo/payload";
 
@@ -74,48 +75,52 @@ try {
   //중복검사 타입 확인
   const type = req.params.type
 
-  console.log(type);
 
   switch(type) { 
     case "email": { 
-            // 쿼리스트링 파라미터 확인
+      // GET으로 넘겨받은 이메일
       const email = req.query.email
-      
+      // DB 회원 이메일 중복확인 
+      const info: IUserCount = await getCountByEmail(email as string);
+
       if (email === "") {
-        payload.error = createError(101, "입력된 이메일 주소가 없습니다.");
+        payload.error = createError(101, "입력한 이메일 주소가 없습니다.");
       }
-      else if (email === "s8282909@naver.com"){
+      else if (info.count === 0){
           payload.data = {
-              message: "이메일이 중복되었습니다.",
-              code: 202,
+              message: "사용가능한 이메일입니다.",
+              code: 201,
             };
             payload.result = true;    
       } else{
           payload.data = {
-              message: "사용가능한 이메일입니다.",
-              code: 201,
+              message: "이메일이 중복되었습니다.",
+              code: 202,
             };
           payload.result = true;
       }
        break; 
     } 
     case "nickname": { 
-      // 쿼리스트링 파라미터 확인
+      // GET으로 넘겨받은 닉네임
       const nickname = req.query.nickname
-    
+      // DB 회원 닉네임 중복확인 
+      const info: IUserCount = await getCountByNickname(nickname as string);      
+   
+
       if (nickname === "") {
-        payload.error = createError(101, "입력된 닉네임이 없습니다.");
+        payload.error = createError(101, "입력한 닉네임이 없습니다.");
       }
-      else if (nickname === "연철리"){
+      else if (info.count ===  0){
           payload.data = {
-              message: "닉네임이 중복되었습니다.",
-              code: 202,
+              message: "사용가능한 닉네임입니다.",
+              code: 201,
             };
             payload.result = true;     
       } else{
           payload.data = {
-              message: "사용가능한 닉네임입니다.",
-              code: 201,
+              message: "닉네임이 중복되었습니다.",
+              code: 202,
             };
           payload.result = true;
       }

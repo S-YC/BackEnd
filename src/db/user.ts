@@ -27,6 +27,53 @@ export interface IUserLoginHistory {
   ip4: string;
 }
 
+export interface IUserCount {
+  count: number;
+}
+
+
+/**
+ * 이메일 중복검사 
+ * @param {String} email 이메일
+ * @returns {Array} cOUNT 결과
+ * @description  IUserCount 인터페이스 변수와 컬럼명이 동일해야함 (별칭 사용)
+ * @memberof Db
+ */
+ export async function getCountByEmail(
+  email: string
+): Promise<IUserCount> {
+  try {
+    const rows: Array<IUserCount> = await query<IUserCount>(
+      `SELECT COUNT(email) as count FROM user_info where email = '${email}'`
+    );
+    return rows[0];
+  } catch (err) {
+    throw err;
+  }
+}
+
+/**
+ * 닉네임 중복검사 
+ * @param {String} nickname 닉네임
+ * @returns {Array} cOUNT 결과
+ * @description  IUserCount 인터페이스 변수와 컬럼명이 동일해야함 (별칭 사용)
+ * @memberof Db
+ */
+ export async function getCountByNickname(
+  nickname: string
+): Promise<IUserCount> {
+  try {
+    const rows: Array<IUserCount> = await query<IUserCount>(
+      `SELECT COUNT(nick) as count FROM user_info where nick = '${nickname}'`
+    );
+    return rows[0];
+  } catch (err) {
+    throw err;
+  }
+}
+
+
+
 /**
  * 이메일로 회원 정보 가져오기
  * @param {String} email 이메일
@@ -45,6 +92,7 @@ export async function getUserByEmail(
     throw err;
   }
 }
+
 
 export async function addLogin(
   useridx: number,
