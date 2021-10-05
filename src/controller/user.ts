@@ -35,7 +35,6 @@ export const login = async (
     if (info === undefined) {
       payload.error = createError(201, "이메일 주소를 확인해 주세요.");
     } else {
-      console.log(info);
       if (info.u_status !== "0") {
         payload.error = createError(202, "고객센터에 문의 하시기 바랍니다.");
       } else {

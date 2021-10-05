@@ -18,6 +18,7 @@ export interface IUser {
   u_status: string;
 }
 
+
 export interface IUserLoginHistory {
   useridx: number;
   token: string;
@@ -27,8 +28,53 @@ export interface IUserLoginHistory {
   ip4: string;
 }
 
+export interface IUserAdd {
+  useridx: number;
+  email: string;
+  tell: string;
+  nick: string;
+  pass: string;
+  pwd: string;
+  salt: string;
+  si: string;
+  gugun: string;
+  dong: string;
+  addr: string;
+  zip: string;
+  regdate: string;
+  /** 상태값 */
+  u_status: string;
+}
+
 export interface IUserCount {
   count: number;
+}
+
+
+/**
+ * 회원가입
+ * @param {String} email 이메일
+ * @param {String} nick  닉네임
+ * @param {String} pwd   패스워드
+ * @param {String} sms_yn 문자 수신동의 (0 :동의, 1: 미동의)
+ * @param {String} email_yn 이메일 수신동의 (0 :동의, 1: 미동의)
+ * @memberof Db
+ */
+ export async function addUser(
+  email: string,
+  nick: string,
+  pwd: string, 
+  sms_yn: number, 
+  email_yn: number   
+) {
+  try {
+    const rows: Array<IUserAdd> = await query<IUserAdd>(
+      `insert into user_info (email, tell, nick, pwd, u_status, sms_yn, email_yn, utype, si, gugun, dong, zip, regdate) values ('${email}','01012345678','${nick}','${pwd}', '0', '${sms_yn}', '${email_yn}', '0', '123', '123', '123', '123', NOW())`
+    );
+    return rows;
+  } catch (err) {
+    throw err;
+  }
 }
 
 
