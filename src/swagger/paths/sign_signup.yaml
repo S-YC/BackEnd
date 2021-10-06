@@ -37,6 +37,9 @@ components:
         email:
           type: string
           description: 이메일
+        tell:
+          type: string
+          description: 핸드폰 번호          
         pwd:
           type: string
           description: 비밀번호
@@ -44,11 +47,11 @@ components:
           type: string
           description: 닉네임    
         agmkEmail:
-          type: boolean
-          description: 이메일 수신동의    
+          type: number
+          description: 이메일 수신동의 (동의 0, 미동의 1)  
         agmkSmsLms:
-          type: boolean
-          description: SMS/LMS 수신동의                             
+          type: number
+          description: SMS/LMS 수신동의 (동의 0, 미동의 1)                               
 
     SingUpReturn:
       allOf:

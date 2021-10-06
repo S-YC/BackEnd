@@ -54,6 +54,7 @@ export interface IUserCount {
 /**
  * 회원가입
  * @param {String} email 이메일
+ * @param {String} tell  휴대폰번호
  * @param {String} nick  닉네임
  * @param {String} pwd   패스워드
  * @param {String} sms_yn 문자 수신동의 (0 :동의, 1: 미동의)
@@ -62,6 +63,7 @@ export interface IUserCount {
  */
  export async function addUser(
   email: string,
+  tell: string,
   nick: string,
   pwd: string, 
   sms_yn: number, 
@@ -69,7 +71,7 @@ export interface IUserCount {
 ) {
   try {
     const rows: Array<IUserAdd> = await query<IUserAdd>(
-      `insert into user_info (email, tell, nick, pwd, u_status, sms_yn, email_yn, utype, si, gugun, dong, zip, regdate) values ('${email}','01012345678','${nick}','${pwd}', '0', '${sms_yn}', '${email_yn}', '0', '123', '123', '123', '123', NOW())`
+      `insert into user_info (email, tell, nick, pwd, u_status, sms_yn, email_yn, utype, si, gugun, dong, zip, regdate) values ('${email}','${tell}','${nick}','${pwd}', '0', '${sms_yn}', '${email_yn}', '0', '123', '123', '123', '123', NOW())`
     );
     return rows;
   } catch (err) {
