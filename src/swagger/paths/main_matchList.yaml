@@ -29,7 +29,7 @@ components:
           description: 고유번호
         src:
           type: string
-          description: 이미지
+          description: 이미지 주소
         mainTitle:
           type: string
           description: 메인 타이틀

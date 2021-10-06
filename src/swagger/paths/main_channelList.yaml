@@ -1,7 +1,7 @@
 get:
   tags:
     - Main
-  summary: 채널리스트 정보 
+  summary: 채널리스트 정보
   requestBody:
     description: Optional description in *Markdown*
   responses:
@@ -9,7 +9,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ChannelReturn"
+            $ref: "#/components/schemas/MatchReturn"
     default:
       description: 모든 통신에러
       content:
@@ -19,7 +19,7 @@ get:
 
 components:
   schemas:
-    ChannelItem:
+    MatchItem:
       type: object
       required:
         - id
@@ -29,18 +29,19 @@ components:
           description: 고유번호
         src:
           type: string
-          description: 이미지
-        mainTitle:
+          description: 이미지 주소
+        mainText:
           type: string
-          description: 메인 타이틀
-        chnnlName:
+          description: 채널 메인 제목
+        chnnelName:
           type: string
-          description: 채널 명
-        chnnelViewCount:
+          description: 채널명
+        chnnelView:
           type: number
           description: 조회수
+          
     
-    ChannelReturn:
+    MatchReturn:
       allOf:
         - $ref: "../openapi.yaml#/components/schemas/BaseReturn"
         - type: object
@@ -48,6 +49,6 @@ components:
             - data
           properties:
             data:
-              type: Array
+              type: array
               items:
-                $ref: "#/components/schemas/ChannelItem"
+                $ref: "#/components/schemas/MatchItem"
